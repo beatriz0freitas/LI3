@@ -1,0 +1,23 @@
+name: Validação do projeto no Ubuntu 22.04
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-22.04 
+    steps:
+      - name: Fazer download do código
+        uses: actions/checkout@v3
+      - name: Instalar dependencias
+        run: |
+          sudo apt update
+          sudo apt install gcc make libglib2.0-dev libgtk2.0-dev valgrind \
+          libncurses-dev libncurses6 libncursesw6 libreadline8 \
+          libreadline-dev -y
+      - name: Make
+        working-directory: trabalho-pratico 
+        run: make run-testes
